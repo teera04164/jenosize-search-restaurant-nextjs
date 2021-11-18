@@ -12,14 +12,16 @@ import SearchInput from './SearchInput';
 import api from '../../API';
 
 export default function Navbar() {
-    const { setResultSearch } = useGlobalContext()
+    const { setResultSearch, setLoadding } = useGlobalContext()
 
     const handleClickSearch = async (query) => {
+        setLoadding(true)
         if (!query) {
             return
         }
-        const result = await api.getSearch({ query })
+        const result = await api.getSearch({ query }).catch(() => { setLoadding(false) })
         setResultSearch(result)
+        setLoadding(false)
     }
     return (
         <Box sx={{ flexGrow: 1 }}>

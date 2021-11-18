@@ -8,10 +8,13 @@ export const useGlobalContext = () => {
 
 export const GlobalProvider = ({ children }) => {
     const [resultSearch, setResultSearch] = useState([])
+    const [loadding, setLoadding] = useState(false)
 
     const value = {
         resultSearch,
-        setResultSearch
+        setResultSearch,
+        loadding,
+        setLoadding
     }
 
     return (

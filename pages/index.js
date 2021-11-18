@@ -8,6 +8,7 @@ import Footer from '../src/components/Footer';
 
 import { GlobalProvider } from '../src/contexts/GlobalContext';
 import HeadMeta from '../src/components/HeadMeta';
+import Loading from '../src/components/Loading';
 
 const Theme = createTheme({
   palette: {
@@ -21,6 +22,7 @@ export default function Home() {
   return (
     <ThemeProvider theme={Theme}>
       <GlobalProvider>
+        <Loading />
         <HeadMeta />
         <Navbar />
         <BodyLayout>
