@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid';
+
 import RestuarantItem from './RestuarantItem';
 import { useGlobalContext } from '../contexts/GlobalContext';
 import { baseUrl } from '../API';
 
-const defaultUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png'
+const defaultUrlImage = 'img/default-img.gif'
 
 function RestuarantList() {
     const [dataList, setDataList] = useState([])
     const { resultSearch } = useGlobalContext()
+
     useEffect(() => {
         initial()
     }, [resultSearch])
@@ -17,7 +19,7 @@ function RestuarantList() {
         const { results = [] } = resultSearch || {}
         let data = results.map(ele => {
             const { name, photos = [{}], rating, user_ratings_total, formatted_address, place_id } = ele
-            let photosUrl = photos[0].photo_reference ? `${baseUrl}/api/restaurant/photo?photo_reference=${photos[0].photo_reference}` : defaultUrl
+            const photosUrl = photos[0].photo_reference ? `${baseUrl}/api/restaurant/photo?photo_reference=${photos[0].photo_reference}` : defaultUrlImage
             return ({
                 place_id,
                 name,
@@ -31,13 +33,12 @@ function RestuarantList() {
 
     }
     return (
-        <Grid container>
+        <Grid item>
             {
-                dataList.map(ele => {
-
-                    return <RestuarantItem key={ele.place_id}  {...{ ...ele }} />
-
-                })
+                dataList.map(ele => <RestuarantItem
+                    key={ele.place_id}
+                    {...{ ...ele }}
+                />)
             }
         </Grid>
     )
